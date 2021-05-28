@@ -22,7 +22,7 @@ Redis 的主从模式和 Sentinel 分别解决的是 Redis 的读性能瓶颈以
 
 ### 思维脑图
 
-![image-20210528000112558](https://chenqwwq-note.oss-cn-hangzhou.aliyuncs.com/img/Redis-master-slaver.png)
+![image-20210528000112558](https://chenbxxx.oss-cn-beijing.aliyuncs.com/note/assets/redis-master-slaver.png)
 
 
 
