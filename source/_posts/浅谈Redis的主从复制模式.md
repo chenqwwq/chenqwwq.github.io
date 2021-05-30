@@ -1,5 +1,5 @@
 ---
-title: 浅析Redis的主从和哨兵机制
+title: 浅析Redis的主从模式
 excerpt: Redis 的主从模式和 Sentinel 分别解决的是 Redis 的读性能瓶颈以及单点故障问题。
 index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/redis-master-slaver.png
 banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/redis-master-slaver.png
@@ -20,7 +20,7 @@ tags:
 
 Redis 的主从复制是 Redis 官方推出的分布式机制，解决了部分集群问题。
 
-是后续一些分布式实现的基础，包括 Sentinel 以及 Cluster 等实现多多少少都用到了部分复制的功能。
+官方后续的一些分布式的实现，包括 Sentinel 以及 Cluster 等，多多少少都用到了复制的功能。
 
 
 
@@ -36,15 +36,27 @@ Redis 的主从复制是 Redis 官方推出的分布式机制，解决了部分�
 
 ## 相关实现
 
+### 查看节点主从信息
+
+通过指令 `info replication`，可以单独查看服务器此时的主从信息。如下：
+
+![redis-info-replication](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/redis_info_replication_master.png)
+
+> role 表示当前节点的身份，master 表示是主节点
+>
+> connected_slave 表示当前的子节点数，以及 slave0 就表示子节点信息。
+
 <br>
+
+
 
 ### 主从关系的建立
 
-Redis 服务器可以通过 `SLAVEOF <ip> <port>` 命令或者配置文件中 `slavof <ip> <port>` 的方式，让当前服务器去复制另外一个 Redis 服务器。
+Redis 服务器可以通过 `SLAVEOF <ip> <port>` 命令或者配置文件中 `slavof <ip> <port>` 的方式，建立主从关系。
 
-被复制的服务器称为主服务器，当前服务器则称为从服务器，以此形成一种主从关系 (Master-Slave 关系)。
+被复制的服务器称为主服务器，当前服务器则称为从服务器。
 
-> Redis 只支持一主多从的方式！！！
+需要注意的是，Redis 只支持一主多从的方式，一个从服务器只能对应一个主服务器。
 
 <br>
 
@@ -52,21 +64,9 @@ Redis 服务器可以通过 `SLAVEOF <ip> <port>` 命令或者配置文件中 `s
 
 **建立主从关系之后，从服务器就无法再执行写命令了，而是完全同步主服务器的数据。**
 
-> 就算在执行 AOF 或者 RDB 文件的过程中发现有过期的键也不能主动删除，只能等主服务器的同步。
+> 即使在执行 AOF 或者 RDB 文件的过程中发现有过期的键也不会主动删除，只能等主服务器的同步。
 >
-> 因为无法执行命令，无法写入，所以主从模式仅仅只扩展了读属性，写入瓶颈依然存在。
-
-<br>
-
-
-
-通过指令 `info replication`，可以单独查看服务器此时的主从信息。如下：
-
-![image-20191109232601445](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/redis_info_replication_master.png)
-
-> role 表示当前节点的身份，master 表示是主节点
->
-> connected_slave 表示当前的子节点数，以及 slave0 就表示子节点信息。
+> 因为无法执行命令，无法写入，所以**主从模式仅仅只扩展了读属性，写入瓶颈依然存在。**
 
 <br>
 
@@ -78,7 +78,7 @@ Redis 服务器可以通过 `SLAVEOF <ip> <port>` 命令或者配置文件中 `s
 
 > 这里的一致性都是指最终一致性，**因为命令的扩散也会有延迟**，卡着延迟从从服务器中读取就会有数据不一致的问题。
 >
-> 因此如果对一致性的要求很高，或者必须要强一致性，建议还是不要从从服务器读取。
+> 因此如果对一致性的要求很高，或者必须要强一致性，建议不要从从服务器读取。
 
 
 
@@ -92,13 +92,13 @@ Redis 服务器可以通过 `SLAVEOF <ip> <port>` 命令或者配置文件中 `s
 
 
 
-Redis 中对应数据同步的命令有两个 SYNC 和 PSYNC。
+**Redis 中对应数据同步的命令有两个 SYNC 和 PSYNC。**
 
 ### SYNC - 旧版复制
 
 旧版的数据同步就是依托于 SYNC 命令，从服务器向主服务器发送该命令表示开启同步数据流程。
 
-![image-20191109154905723](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/Redis_SYNC_流程.png)
+![redis-sync基础流程](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/Redis_SYNC_流程.png)
 
 主服务器首次接收到 `SYNC` 命令之后，会执行 BGSAVE 命令生成 RDB 文件，并在此时开启**命令缓冲区**，记录备份期间所有执行的写命令。
 
@@ -164,8 +164,6 @@ PSYNC 命令完整的形式是 `PSYNC <runid> <offest>`，**在全量同步的�
 
    此处的 run ID 是在从服务器连接到主服务器是由主服务器下发的自身的 run ID，重连之后通过判断 run ID 来确定是否为同一个 Master。
 
-
-
 <br>
 
 
@@ -176,9 +174,9 @@ PSYNC 的执行流程简述如下：
 2. run ID 相同表示是断线重连，判断复制偏移量是否还在复制缓冲区中，如果超出表示超时时间过长，也需要走 SYNC。
 3. 如果复制偏移量未超出复制缓冲区，则直接将复制缓冲区中的命令发送到从服务器，从而避免全量同步。
 
-
-
 <br>
+
+
 
 
 
@@ -194,9 +192,9 @@ PSYNC 的执行流程简述如下：
 
 备份数据，强化数据安全
 
-
-
 <br>
+
+
 
 
 
