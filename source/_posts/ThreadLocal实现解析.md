@@ -1,7 +1,7 @@
 ---
 
 title: ThreadLocal深入解析
-excerpt: Redis 的主从模式和 Sentinel 分别解决的是 Redis 的读性能瓶颈以及单点故障问题。
+excerpt: ThreadLocal（线程局部变量），作用是保存每个线程的私有变量，以空间换时间的方式，为每一个线程保存一份私有变量，也就不存在所谓的并发问题。
 index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/ThreadLocal.png
 banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/ThreadLocal.png
 date: 2021-05-30 23:08:35
