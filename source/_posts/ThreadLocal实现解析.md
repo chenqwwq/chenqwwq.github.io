@@ -6,10 +6,9 @@ index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/ThreadLocal
 banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/ThreadLocal.png
 date: 2021-05-30 23:08:35
 categories:
-- jdk
+- java
 tags:
-- threadlocal
-
+- jdk
 ---
 
 
