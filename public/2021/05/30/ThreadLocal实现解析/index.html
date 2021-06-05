@@ -14,7 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="Redis 的主从模式和 Sentinel 分别解决的是 Redis 的读性能瓶颈以及单点故障问题。">
+  <meta name="description" content="ThreadLocal（线程局部变量），作用是保存每个线程的私有变量，以空间换时间的方式，为每一个线程保存一份私有变量，也就不存在所谓的并发问题。">
   <meta name="author" content="chenqwwq">
   <meta name="keywords" content="">
   
@@ -410,7 +410,7 @@
 
 
 
-<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q &amp; A"></a>Q &amp; A</h2><blockquote>
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><blockquote>
 <p>Q: ThreadLocal 为何会出现内存泄露？</p>
 </blockquote>
 <p><strong>ThreadLocal 会出现内存泄露的主要原因是如果是强引用，那么在 ThreadLocal 类不再使用之后，ThreadLocalMap 中无法清除相关的 Entry 对象。</strong></p>
@@ -467,7 +467,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/jdk/">jdk</a>
+                      <a class="hover-with-bg" href="/categories/java/">java</a>
                     
                   </div>
                 
@@ -475,7 +475,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/threadlocal/">threadlocal</a>
+                      <a class="hover-with-bg" href="/tags/jdk/">jdk</a>
                     
                   </div>
                 
@@ -491,6 +491,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/06/05/%E6%B5%85%E6%9E%90-JVM-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">浅析 JVM 类加载子系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
