@@ -139,7 +139,13 @@ Class 文件常量池中就包含了一部分的符号引用。
 
 ## 基本的类加载器
 
-![image-20210605155116272](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210605155116272.png)
+```mermaid
+graph TD
+A[Bootstrap ClassLoader] --> B[Extension ClassLoader] 
+B --> C[Application ClassLoader]
+```
+
+
 
 以上是 JDK 中提供的三种基础的类加载器。
 
@@ -341,7 +347,18 @@ Tomcat 作为一个 Web Servlet 容器，肯定需要装载多个 Web 应用，�
 
 > JSP 最后会被转化为 Class 然后执行输出。
 
-![Tomcat的类加载体系](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/Tomcat的类加载体系.png)
+```mermaid
+graph TD
+A[Bootstrap ClassLoader] --> B[Extension ClassLoader] 
+B --> C[Application ClassLoader]
+C --> D[Common ClassLoader]
+D --> E[Catalina ClassLoader]
+D --> F[Shared ClassLoader]
+F --> G[WebApp ClassLoader]
+G --> H[Jsp ClassLoader]
+```
+
+
 
 
 
