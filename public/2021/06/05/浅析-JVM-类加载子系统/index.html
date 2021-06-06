@@ -231,7 +231,18 @@
 
 
 
-<h2 id="类加载的流程"><a href="#类加载的流程" class="headerlink" title="类加载的流程"></a>类加载的流程</h2><p><img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210605155028612.png" srcset="/img/loading.gif" lazyload alt="image-20210605155028612"></p>
+<h2 id="类加载的流程"><a href="#类加载的流程" class="headerlink" title="类加载的流程"></a>类加载的流程</h2><pre class="mermaid">graph LR
+
+ subgraph B [链接]
+ D[验证] --> E[准备]
+ E --> F[解析]
+ end
+
+A[ 加载] --> D
+F --> H[初始化]</pre>
+
+
+
 <p><strong>实际的类加载流程是交叉进行的，并不是线程执行，</strong>例如加载到二进制流之后，验证就会开始文件结构验证。</p>
 <br>
 
@@ -684,6 +695,13 @@
 
 
 
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8.9.2/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
 
 
 

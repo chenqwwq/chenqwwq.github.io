@@ -4,6 +4,7 @@ date: 2021-06-05 15:41:06
 excerpt: Java 的类加载子系统负责从网络或者本地文件等多途径获取以 .class 结尾的字节码文件，并解析成基本的 Class 类。
 index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/JVM类加载子系统.png
 banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/JVM类加载子系统.png
+mermaid: true
 categories:
 - java
 tags:
@@ -42,8 +43,19 @@ Java 的类加载子系统负责从网络或者本地文件等多途径获取以
 
 ## 类加载的流程
 
+```mermaid
+graph LR
 
-![image-20210605155028612](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210605155028612.png)
+ subgraph B [链接]
+ D[验证] --> E[准备]
+ E --> F[解析]
+ end
+
+A[ 加载] --> D
+F --> H[初始化]
+```
+
+
 
 **实际的类加载流程是交叉进行的，并不是线程执行，**例如加载到二进制流之后，验证就会开始文件结构验证。
 
