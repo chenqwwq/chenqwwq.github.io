@@ -173,7 +173,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3k 字
+      3.1k 字
     </span>
   
 
@@ -183,7 +183,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      33
+      34
        分钟
     </span>
   
@@ -231,15 +231,16 @@
 
 
 
-<h2 id="类加载的流程"><a href="#类加载的流程" class="headerlink" title="类加载的流程"></a>类加载的流程</h2><pre class="mermaid">graph LR
+<h2 id="类加载的流程"><a href="#类加载的流程" class="headerlink" title="类加载的流程"></a>类加载的流程</h2><pre><code class=" mermaid">graph LR
 
  subgraph B [链接]
- D[验证] --> E[准备]
- E --> F[解析]
+ D[验证] --&gt; E[准备]
+ E --&gt; F[解析]
  end
 
-A[ 加载] --> D
-F --> H[初始化]</pre>
+A[ 加载] --&gt; D
+F --&gt; H[初始化]
+</code></pre>
 
 
 
@@ -316,7 +317,13 @@ F --> H[初始化]</pre>
 
 <br>
 
-<h2 id="基本的类加载器"><a href="#基本的类加载器" class="headerlink" title="基本的类加载器"></a>基本的类加载器</h2><p><img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210605155116272.png" srcset="/img/loading.gif" lazyload alt="image-20210605155116272"></p>
+<h2 id="基本的类加载器"><a href="#基本的类加载器" class="headerlink" title="基本的类加载器"></a>基本的类加载器</h2><pre><code class=" mermaid">graph TD
+A[Bootstrap ClassLoader] --&gt; B[Extension ClassLoader] 
+B --&gt; C[Application ClassLoader]
+</code></pre>
+
+
+
 <p>以上是 JDK 中提供的三种基础的类加载器。</p>
 <ul>
 <li>Bootstrap ClassLoader </li>
@@ -462,7 +469,20 @@ F --> H[初始化]</pre>
 <blockquote>
 <p>JSP 最后会被转化为 Class 然后执行输出。</p>
 </blockquote>
-<p><img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/Tomcat%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E4%BD%93%E7%B3%BB.png" srcset="/img/loading.gif" lazyload alt="Tomcat的类加载体系"></p>
+<pre><code class=" mermaid">graph TD
+A[Bootstrap ClassLoader] --&gt; B[Extension ClassLoader] 
+B --&gt; C[Application ClassLoader]
+C --&gt; D[Common ClassLoader]
+D --&gt; E[Catalina ClassLoader]
+D --&gt; F[Shared ClassLoader]
+F --&gt; G[WebApp ClassLoader]
+G --&gt; H[Jsp ClassLoader]
+</code></pre>
+
+
+
+
+
 <p>所以 Tomcat 设计了如上的一套类加载体系。</p>
 <p>除开三种基础的类加载器，Common 就是 Tomcat 中最上层的，他加载的类对所有的 Web 应用共享，并且对 Tomcat 自身也是共享的。</p>
 <p>Catalina 负责加载的是 Tomcat 专用的一些类，比如 Tomcat 中的 Connector 等一些基础组件，这些对 Web 应用来说是不可见的，是隔离开的。</p>
