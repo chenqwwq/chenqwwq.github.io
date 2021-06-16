@@ -1,5 +1,5 @@
 ---
-title: 浅析Redis的主从模式
+title: 浅析 Redis 的主从模式
 excerpt: Redis 的主从模式和 Sentinel 分别解决的是 Redis 的读性能瓶颈以及单点故障问题。
 index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/redis-master-slaver.png
 banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/redis-master-slaver.png
@@ -12,7 +12,7 @@ tags:
 
 
 
-# Redis的主从复制
+# Redis 的主从复制
 
 
 
