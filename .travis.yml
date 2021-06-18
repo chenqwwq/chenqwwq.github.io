@@ -5,9 +5,6 @@ cache: npm
 branches:
   only:
     - main
-cache:
-  directories:
-    - node_modules
 script:
   - hexo generate # generate static files
 deploy:
