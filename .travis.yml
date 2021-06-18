@@ -1,3 +1,4 @@
+os: linue
 sudo: false
 language: node_js
 node_js:
@@ -6,11 +7,14 @@ cache: npm
 branches:
   only:
     - main
+cache:
+  directories:
+    - node_modules
 script:
   - hexo generate # generate static files
 deploy:
   provider: pages
-  skip-cleanup: false
+  skip-cleanup: true
   github-token: $GH_TOKEN
   keep-history: true
   on:
