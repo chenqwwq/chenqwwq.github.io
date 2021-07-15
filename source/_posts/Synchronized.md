@@ -18,7 +18,7 @@ tags:
 
 ## 知识脑图
 
-![image-20210715211623026](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210715211623026.png)
+![Synchronized 脑图](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210715211623026.png)
 
 ## 概述
 
