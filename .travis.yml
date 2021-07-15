@@ -1,12 +1,15 @@
-os: linux
+s: linux
 language: node_js
 node_js:
   - 15
-cache: npm
+cache:
+  directories:
+    - node_modules
 branches:
   only:
     - main
 script:
+  - hexo clean
   - hexo generate # generate static files
 deploy:
   provider: pages
