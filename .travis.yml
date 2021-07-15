@@ -1,3 +1,4 @@
+os: linux
 language: node_js
 node_js:
   - 15
@@ -9,8 +10,9 @@ script:
   - hexo generate # generate static files
 deploy:
   provider: pages
+  skip_cleanup: false
   github-token: $GH_TOKEN
-  keep-history: true
+  keep-history: false
   on:
     branch: main
   local-dir: public
