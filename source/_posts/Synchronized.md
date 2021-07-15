@@ -1,18 +1,24 @@
 ---
-title: synchronized
+title: synchronized 相关内容整理
 date: 2021-07-15 18:10:28
 excerpt:  synchronized 是 Java 提供的同步原语，背后是 Java虚拟机(JVM) 提供的 Monitor 机制。
+index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210715211623026.png
+banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210715211623026.png
 categories:
 - java
 tags:
 - jvm
 ---
 
-# synchronized
+# synchronized 相关内容整理
 
 > synchronized 就是 JVM 提供的内置锁。
 
 ---
+
+## 知识脑图
+
+![image-20210715211623026](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210715211623026.png)
 
 ## 概述
 
