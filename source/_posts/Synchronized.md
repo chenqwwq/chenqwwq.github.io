@@ -83,7 +83,7 @@ synchronized 根据不同的上锁形式会有不同的实现方式。
 
 1. **在修饰代码块时使用的是明确的`monitorenter`和`monitorexit`两个指令** 
 
-    ![](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_moitorenter_exit.png)
+    ![javap_moitorenter_exit](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_moitorenter_exit.png)
 
     > 退出实际上是两次的，在方法执行完毕之后还会执行一次 monitorexit
 
@@ -91,7 +91,7 @@ synchronized 根据不同的上锁形式会有不同的实现方式。
 
 2. **在修饰方法(包括静态方法)时由方法调用指令读取运行时常量池方法中的 `ACC_SYNCHRONIZED` 隐式实现**
 
-      ![image-20210220102424150](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_acc_synchronized.jpg)
+      ![javap_acc_synchronized](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_acc_synchronized.jpg)
 
 <br>
 
@@ -105,7 +105,7 @@ synchronized 根据不同的上锁形式会有不同的实现方式。
 
 下图中就比较清晰的展示了,不同情况下`Mark Word`的不同结构.
 
-![](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/markword.jpg)
+![markword](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/markword.jpg)
 
 > Mark Word 相当于是锁的记录，查看 Mark Word 就可以确定当前 Monitor 锁的状态。
 >
@@ -123,7 +123,7 @@ Monitor 是虚拟机内建的用来实现同步的机制，原则上Java的每�
 >
 > 因为线程的阻塞，恢复以及 mutex 的调用等都涉及到用户态到内核态的切换，所以性能有限。
 
-![img](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/JVM_Monitor.jpeg)
+![JVM_Monitor](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/JVM_Monitor.jpeg)
 
 上图可以简单说明整个 Monitor 机制的工作方法。
 
@@ -175,7 +175,7 @@ notify() 会从当前的 Monitor 的 Wait Set 中随机唤醒一个等待的线�
 
 ### 锁的转换关系
 
-![](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/java_synchronized.jpg)
+![synchronized 锁转化关系](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/java_synchronized.jpg)
 
 - 我觉得上图已经很好的展示了几个状态之间的转化,就不在赘述了.<font size="1">(估计也讲不好)</font>
 
