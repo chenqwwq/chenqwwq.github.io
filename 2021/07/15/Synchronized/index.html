@@ -257,13 +257,13 @@
 <h2 id="synchronized的虚拟机层实现"><a href="#synchronized的虚拟机层实现" class="headerlink" title="synchronized的虚拟机层实现"></a>synchronized的虚拟机层实现</h2><p>synchronized 根据不同的上锁形式会有不同的实现方式。</p>
 <ol>
 <li><p><strong>在修饰代码块时使用的是明确的<code>monitorenter</code>和<code>monitorexit</code>两个指令</strong> </p>
-<p> <img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_moitorenter_exit.png" srcset="/img/loading.gif" lazyload></p>
+<p> <img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_moitorenter_exit.png" srcset="/img/loading.gif" lazyload alt="javap_moitorenter_exit"></p>
 <blockquote>
 <p>退出实际上是两次的，在方法执行完毕之后还会执行一次 monitorexit</p>
 </blockquote>
  <br></li>
 <li><p><strong>在修饰方法(包括静态方法)时由方法调用指令读取运行时常量池方法中的 <code>ACC_SYNCHRONIZED</code> 隐式实现</strong></p>
-<p>   <img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_acc_synchronized.jpg" srcset="/img/loading.gif" lazyload alt="image-20210220102424150"></p>
+<p>   <img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_acc_synchronized.jpg" srcset="/img/loading.gif" lazyload alt="javap_acc_synchronized"></p>
 </li>
 </ol>
 <br>
@@ -275,7 +275,7 @@
 <p>Java 的对象头包含了 <strong>Mark Word，类型指针和对齐填充。</strong></p>
 </blockquote>
 <p>下图中就比较清晰的展示了,不同情况下<code>Mark Word</code>的不同结构.</p>
-<p><img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/markword.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/markword.jpg" srcset="/img/loading.gif" lazyload alt="markword"></p>
 <blockquote>
 <p>Mark Word 相当于是锁的记录，查看 Mark Word 就可以确定当前 Monitor 锁的状态。</p>
 <p>Class 对象也继承与 Object 对象，所以也能作为 Monitor 锁对象。</p>
@@ -289,7 +289,7 @@
 <p><code>Monitor</code>的实现还是依赖于操作系统的<code>Mutex Lock</code>(互斥锁)来实现的，对于操作系统层面的实现不深究。</p>
 <p>因为线程的阻塞，恢复以及 mutex 的调用等都涉及到用户态到内核态的切换，所以性能有限。</p>
 </blockquote>
-<p><img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/JVM_Monitor.jpeg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/JVM_Monitor.jpeg" srcset="/img/loading.gif" lazyload alt="JVM_Monitor"></p>
 <p>上图可以简单说明整个 Monitor 机制的工作方法。</p>
 <p>Entry Set 存放所有竞争线程集合，Wait Set 存放所有的等待线程的集合。</p>
 <blockquote>
@@ -328,7 +328,7 @@
 <p>锁级别从低到高依次是：无锁状态、偏向锁状态、轻量级锁状态和重量级锁状态，<strong>绝大多数情况下，锁可以升级但不能降级。</strong></p>
 <br>
 
-<h3 id="锁的转换关系"><a href="#锁的转换关系" class="headerlink" title="锁的转换关系"></a>锁的转换关系</h3><p><img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/java_synchronized.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="锁的转换关系"><a href="#锁的转换关系" class="headerlink" title="锁的转换关系"></a>锁的转换关系</h3><p><img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/java_synchronized.jpg" srcset="/img/loading.gif" lazyload alt="synchronized 锁转化关系"></p>
 <ul>
 <li>我觉得上图已经很好的展示了几个状态之间的转化,就不在赘述了.<font size="1">(估计也讲不好)</font></li>
 </ul>
