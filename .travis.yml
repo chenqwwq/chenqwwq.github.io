@@ -1,16 +1,14 @@
 s: linux
 language: node_js
 node_js:
-  - 15
-cache:
-  directories:
-    - node_modules
+  - 10
+cache: npm
 branches:
   only:
     - main
 script:
-  - hexo clean
-  - hexo generate # generate static files
+  - hexo c
+  - hexo g
 deploy:
   provider: pages
   github-token: $GH_TOKEN
