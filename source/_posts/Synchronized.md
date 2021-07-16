@@ -10,11 +10,6 @@ tags:
 - jvm
 ---
 
-# synchronized 相关内容整理
-
-> synchronized 就是 JVM 提供的内置锁。
-
----
 
 ## 知识脑图
 
@@ -26,21 +21,17 @@ synchronized 是 Java 提供的同步原语，背后是 Java虚拟机(JVM) 提�
 
 > Java 中任何一个对象都可以作为监视器 (Monitor) 对象，因为 Monitor 是通过 C++ 实现的对于 Object 类的扩展机制，该对象保存了锁相关的数据结构，例如保存阻塞线程列表等。
 
-被 synchronized 修饰的代码段一次只能由单个线程执行，以互斥锁的形式保证了代码的线程安全。
+synchronized 修饰的代码块只能由单个线程执行，以互斥锁的形式保证了其线程安全。
 
-**synchronized 具有可重入性，单线程可以重复对一个对象上锁，而不会自我阻塞，但是解锁还是一次性的。**
+**synchronized 具有可重入性，单线程可以重复对一个对象上锁，而不会自我阻塞，但解锁还是一次性的。**
 
-**synchronized 保证了程序的可见性和原子性以及有序性。<font size="2">(volatile只能保证可见性以及一定程度上的有序性，而无原子性)</font>**
+**synchronized 保证了程序的可见性和原子性以及有序性。<font size="2">(volatile只能保证可见性以及有序性，而无原子性)</font>**
 
 **synchronized 不具备公平性，会导致饥饿，而使线程阻塞时间过长。**
 
-> `饥饿`就是指线程因为获取不到想要的资源而长时间不能执行。
+> 饥饿就是指线程因为获取不到想要的资源而长时间不能执行。
 
 另外和 synchronized 搭配使用的还有 wait()/notify()/notifyAll() 三个方法。
-
->**调用该三个方法之前必须要获取到对应的 Monitor 锁。**
->
->因为所有的 Object 类都可以作为 Monitor 锁，所以这三个方法直接放在 Object 类也合情合理。
 
 <br>
 
@@ -48,7 +39,7 @@ synchronized 是 Java 提供的同步原语，背后是 Java虚拟机(JVM) 提�
 
 ## synchronized的锁形式
 
-`synchronized `有三种上锁形式，分别会对不同的对象上锁：
+`synchronized `有三种上锁形式，分别会对不同的对象上锁:
 
 1. 修饰实例方法
 
@@ -81,7 +72,7 @@ synchronized 是 Java 提供的同步原语，背后是 Java虚拟机(JVM) 提�
 
 synchronized 根据不同的上锁形式会有不同的实现方式。
 
-1. **在修饰代码块时使用的是明确的`monitorenter`和`monitorexit`两个指令** 
+1. 在修饰代码块时使用的是明确的 **monitorenter 和 monitorexit** 两个指令
 
     ![javap_moitorenter_exit](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_moitorenter_exit.png)
 
@@ -89,7 +80,7 @@ synchronized 根据不同的上锁形式会有不同的实现方式。
 
     <br>
 
-2. **在修饰方法(包括静态方法)时由方法调用指令读取运行时常量池方法中的 `ACC_SYNCHRONIZED` 隐式实现**
+2. 在修饰方法(包括静态方法)时由方法调用指令读取运行时常量池方法中的  **ACC_SYNCHRONIZED** 隐式实现
 
       ![javap_acc_synchronized](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/javap_acc_synchronized.jpg)
 
@@ -99,19 +90,16 @@ synchronized 根据不同的上锁形式会有不同的实现方式。
 
 ## Mark Word
 
-`Mark Word` 是 `Java对象头`结构中除类型指针外的另一部分，用于记录 `HashCode` ，对象的年龄分代，锁状态标志等运行时数据。
+Mark Word  是  Java对象头 结构中除类型指针外的另一部分，用于记录  HashCode ，对象的年龄分代，锁状态标志等运行时数据。
 
 > Java 的对象头包含了 **Mark Word，类型指针和对齐填充。**
 
-下图中就比较清晰的展示了，不同情况下`Mark Word`的不同结构.
+下图中就比较清晰的展示了，不同情况下 Mark Word 的不同结构：
 
 ![markword](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/markword.jpg)
 
-> Mark Word 相当于是锁的记录，查看 Mark Word 就可以确定当前 Monitor 锁的状态。
+> Mark Word 相当于是锁的记录，查看 Mark Word 就可以确定当前 Monitor 锁的状态。<br>
 >
-> Class 对象也继承与 Object 对象，所以也能作为 Monitor 锁对象。
-
-<br>
 
 <br>
 
@@ -147,9 +135,13 @@ Entry Set 存放所有竞争线程集合，Wait Set 存放所有的等待线程�
 
 >**以上三个方法都需要在获取到 Monitor 锁的状态下执行，也就是说在 synchronized 代码块中执行。**
 
-wait() 会释放当前的 Monitor 锁，并使线程进入 WAITING 或者 TIMED_WAITING 状态，在上图中就是进入到 Wait Set 中，另外的wait() 可以指定超时时间。 
+以上三个方法都在 Object 类中声明。
 
-notify() 会从当前的 Monitor 的 Wait Set 中随机唤醒一个等待的线程，notifyAll() 则是唤醒全部的线程。
+> Class 对象也继承与 Object 对象，所以 Class 对象也能作为 Monitor 锁对象。
+
+wait() 会释放当前的 Monitor 锁，并使线程进入 WAITING 或者 TIMED_WAITING 状态，在上图中就是进入到 Wait Set 中，另外 wait(long) 可以指定超时时间。 
+
+notify() 会从当前的 Monitor 的 Wait Set 中唤醒一个等待的线程，notifyAll() 则是唤醒全部的线程。
 
 >notify() 唤醒的线程会进入到 Entry Set，而不是直接获取到锁，当前线程也不会直接释放锁。
 >
@@ -163,11 +155,11 @@ notify() 会从当前的 Monitor 的 Wait Set 中随机唤醒一个等待的线�
 
 ## synchronized的优化<font size="2">(HotSpot)</font>
 
-`JDK1.6` 之前 `synchronized` 一直为重量级锁，直接使用互斥锁阻塞线程，也就导致了一定的性能问题。
+JDK1.6  之前  synchronized  一直为重量级锁，直接使用互斥锁阻塞线程，也就导致了一定的性能问题。
 
 > 性能问题主要来源于线程状态的切换，以及用户态和内核态之间的来回切换。
 
-`HopSpot` 在 `JDK1.6 `之后加入了**偏向锁，自旋锁，自适应自旋锁，轻量级锁等优化**。
+HopSpot  在  JDK1.6 之后加入了**偏向锁，自旋锁，自适应自旋锁，轻量级锁等优化**.
 
 锁级别从低到高依次是：无锁状态、偏向锁状态、轻量级锁状态和重量级锁状态，**绝大多数情况下，锁可以升级但不能降级。**
 
@@ -175,15 +167,13 @@ notify() 会从当前的 Monitor 的 Wait Set 中随机唤醒一个等待的线�
 
 ### 锁的转换关系
 
-![synchronized 锁转化关系](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/java_synchronized.jpg)
+![synchronizd 的锁转换](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/java_synchronized.jpg)
 
 - 我觉得上图已经很好的展示了几个状态之间的转化，就不在赘述了.<font size="1">(估计也讲不好)</font>
 
 <br>
 
 #### 偏向锁相关问题
-
-- 2019-3-6 补充
 
 和群友讨论的时候发现的问题:**如果使用了偏向锁，那么势必会占据 MarkWord 中 HashCode 的位置，那么此时的 HashCode 又保存在哪里？**
 
@@ -200,7 +190,7 @@ notify() 会从当前的 Monitor 的 Wait Set 中随机唤醒一个等待的线�
 
 ### 自旋锁 & 自适应自旋锁
 
-引入自旋锁是因为在很多时候线程并不会长时间持有锁，此时使用 `Metux` 阻塞线程没过一会儿又唤醒就得不偿失。
+引入自旋锁是因为在很多时候线程并不会长时间持有锁，此时使用  Metux 阻塞线程没过一会儿又唤醒就得不偿失。
 
 > **自旋锁就是一个循环，在等待持有锁的线程释放锁的过程中，不阻塞线程而让线程处于一直循环尝试获取锁的状态，从而避免了线程切换，阻塞的开销。**
 
@@ -212,7 +202,7 @@ notify() 会从当前的 Monitor 的 Wait Set 中随机唤醒一个等待的线�
 
 ### 锁消除
 
-锁消除就是**在逃逸分析技术的支持下**，消除非公用资源的上锁步骤，从而提高性能.
+锁消除就是**在逃逸分析技术的支持下**，消除非公用资源的上锁步骤，从而提高性能。
 
 ```java
 public void test(){
@@ -224,13 +214,13 @@ public void test(){
 }
 ```
 
-如上面这段代码展示，其中 `StringBuffer` 类是线程安全的，方法都会有 `synchronized` 修饰，所以最少也会有偏向锁的机制在发挥作用，但 a1 和 a2 的作用域就在 test 方法中，完全不会逃逸到方法体外，也不会引起线程安全问题，此时甚至偏向锁都显得很没必要。
+如上面这段代码展示，其中 StringBuffer 类是线程安全的，方法都会有 synchronized 修饰，所以最少也会有偏向锁的机制在发挥作用，但 a1 和 a2 的作用域就在 test 方法中，完全不会逃逸到方法体外，也不会引起线程安全问题，此时甚至偏向锁都显得很没必要。
 
 <br>
 
 ### 锁粗化
 
-在一段代码中，若同步区域被限制的过小会导致线程频繁的进行锁的释放和获取操作.而此时锁粗化的作用就出来了，**虚拟机探测到该类情况会直接将锁的同步区域扩展到整个操作的外部**，从而消除无谓的锁操作.
+在一段代码中，若同步区域被限制的过小会导致线程频繁的进行锁的释放和获取操作.而此时锁粗化的作用就出来了，**虚拟机探测到该类情况会直接将锁的同步区域扩展到整个操作的外部**，从而消除无谓的锁操作。
 
 ```java
 for(int i = 0;i < 10;i++){
