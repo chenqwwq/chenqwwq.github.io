@@ -308,7 +308,7 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
    #- { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
-    - { key: "笔记", link: "https://note.chenqwwq.cn", icon: "iconfont icon-link-fill" }
+    - { key: "笔记", link: "https://blog.chenqwwq.cn/_note/", icon: "iconfont icon-link-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
