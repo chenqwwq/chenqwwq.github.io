@@ -12,7 +12,7 @@
     "version": "5.4.0"
   },
   "dependencies": {
-    "hexo": "^5.0.0",
+    "hexo": "^6.1.0",
     "hexo-filter-flowchart": "^1.0.4",
     "hexo-filter-mermaid-diagrams": "^1.0.5",
     "hexo-filter-sequence": "^1.0.3",
