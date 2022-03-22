@@ -1,12 +1,13 @@
 sudo: false
 language: node_js
 node_js:
-  - 10 # use nodejs v10 LTS
+  - v17.7.1
 cache: npm
 branches:
   only:
     - main 
 script:
+  - hexo clean
   - hexo generate # generate static files
 deploy:
   provider: pages
