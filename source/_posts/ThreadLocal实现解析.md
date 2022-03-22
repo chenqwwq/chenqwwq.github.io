@@ -1,5 +1,5 @@
 ---
-title: ThreadLocal 深入解析
+title: ThreadLocal 源码分析
 excerpt: ThreadLocal（线程局部变量），作用是保存每个线程的私有变量，以空间换时间的方式，为每一个线程保存一份私有变量，也就不存在所谓的并发问题。
 index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/ThreadLocal.png
 banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/ThreadLocal.png
@@ -18,7 +18,7 @@ tags:
 
 ## 思维导图
 
-![ThreadLocal思维导图](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/ThreadLocal.png)
+![ThreadLocal思维导图](assets/ThreadLocal.png)
 
 <br>
 
@@ -179,7 +179,7 @@ private int threshold; // Default to 0 构造方法
 
 以下为 Entry 对象的声明形式：
 
- ![image-20210221154222208](https://chenqwwq-img.oss-cn-beijing.aliyuncs.com/img/image-20210221154222208.png)
+ ![image-20210221154222208](assets/image-20210221154222208.png)
 
 > WeakReference 声明了 Entry 对象对于 Key ，也就是 ThreadLocal 对象的引用是弱引用。
 >

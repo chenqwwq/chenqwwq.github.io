@@ -19,7 +19,7 @@ tags:
 
 ## 思维导图
 
-![JVM 类加载子系统](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/JVM类加载子系统.png)
+![JVM 类加载子系统](assets/JVM类加载子系统-7942505.png)
 
 
 
@@ -195,7 +195,7 @@ ExtClassLoader 和 AppClassLoader 都定义在 sun.misc.Launcher 中的，Launch
 
 <br>
 
-<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/Launcher构造函数.png" alt="Launcher构造函数" style="zoom:67%;" />
+<img src="assets/Launcher构造函数-7942515.png" alt="Launcher构造函数" style="zoom:67%;" />
 
 上图， Launcher 的构造函数中主要就包含了以下三个逻辑：
 
@@ -404,17 +404,17 @@ JDBC 的核心类定义在 Java 的核心库，由 Bootstrap 加载，但是三�
 
 首先该类的静态初始化块中就包含了 Driver 的类加载流程。
 
-<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/DriverManager的静态初始化块.png" alt="DriverManager 的静态初始化块" style="zoom:80%;" />
+<img src="assets/DriverManager的静态初始化块-7942519.png" alt="DriverManager 的静态初始化块" style="zoom:80%;" />
 
 在 loadInitialDrivers 方法中调用了 ServiceLoader 的 load 方法：
 
-<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/DriverManager11loadInitialDrivers.png" alt="loadInitialDrivers" style="zoom:67%;" />
+<img src="assets/DriverManager11loadInitialDrivers-7942521.png" alt="loadInitialDrivers" style="zoom:67%;" />
 
 
 
 而在 ServiceLoader 中就包含了对线程上下文类加载器的调用：
 
-<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/ServerLoader11load.png" alt="ServerLoader#load" style="zoom:67%;" />
+<img src="assets/ServerLoader11load-7942523.png" alt="ServerLoader#load" style="zoom:67%;" />
 
 
 

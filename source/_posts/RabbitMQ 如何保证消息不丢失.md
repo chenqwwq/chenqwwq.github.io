@@ -20,7 +20,7 @@ tags:
 
 ## 脑图
 
-![相关脑图](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/RabbitMQ脑图1.png)
+![相关脑图](assets/RabbitMQ脑图1-7942529.png)
 
 <br>
 

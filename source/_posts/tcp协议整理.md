@@ -24,13 +24,13 @@ TCP是一种面向连接的，基于字节流的，可靠的传输控制协议�
 
 ## 内容梳理
 
-![1569166769008](https://chenbxxx.oss-cn-beijing.aliyuncs.com/TCP模块整理.png)
+![1569166769008](assets/TCP模块整理.png)
 
 - TCP的内容模块整理，方便记忆。
 
 ## 一、TCP报文首部
 
-![](https://chenbxxx.oss-cn-beijing.aliyuncs.com/TCP首部格式.png)
+![](assets/TCP首部格式.png)
 
 
 
@@ -135,7 +135,7 @@ TCP的四元组为源IP，源端口，目的IP，目的端口，**TCP首部中�
 
 稍微有点常识的程序猿应该都知道，TCP建立连接的时候需要往返发送三个报文。
 
-   ![1568818645296](https://chenbxxx.oss-cn-beijing.aliyuncs.com/TCP打开连接.png)
+   ![1568818645296](assets/TCP打开连接.png)
 
 连接发起者(客户端)会向服务端发送一个**SYN报文**，报文中除了目的端口，还包括ISN(初始序列号)以及部分选项字段。
 
@@ -175,7 +175,7 @@ wireshark测试下发现，客户端SYN报文的SEQ（也就是ISN）在重传�
 
 相对来说关闭连接的四次挥手就好理解多了。
 
-   ![1568820312811](https://chenbxxx.oss-cn-beijing.aliyuncs.com/TCP关闭连接.png)
+   ![1568820312811](assets/TCP关闭连接.png)
 
 1. 连接的主动关闭方，发送一个FIN。
 2. 被动方回复一个ACK。
@@ -220,7 +220,7 @@ wireshark测试下发现，客户端SYN报文的SEQ（也就是ISN）在重传�
 
 #### 同时关闭 
 
-  ![](https://chenbxxx.oss-cn-beijing.aliyuncs.com/TCP同时关闭.png)
+  ![](assets/TCP同时关闭.png)
 
 和同时打开差不多，**同时关闭是在收到对方的FIN之前，向对方发送了自己的FIN报文。**
 
@@ -246,7 +246,7 @@ wireshark测试下发现，客户端SYN报文的SEQ（也就是ISN）在重传�
 
 ## 三、TCP的有限状态机
 
-![](https://chenbxxx.oss-cn-beijing.aliyuncs.com/TCP有限状态机.png)
+![](assets/TCP有限状态机.png)
 
 上图即为《TCP/IP详解 卷一》中的原图。
 
@@ -326,7 +326,7 @@ TCP协议往下就是网络层的IP协议，但是IP协议并不提供任何可�
 
 #### 停止等待ARQ协议
 
- ![](https://chenbxxx.oss-cn-beijing.aliyuncs.com/%E5%81%9C%E6%AD%A2%E7%AD%89%E5%BE%85ARQ.png)
+ ![](assets/停止等待ARQ.png)
 
 **一个分组一个分组的发送，在收到确认之前不会发送下一个分组，如果出现超时就重传丢失分组。**
 
@@ -342,7 +342,7 @@ TCP协议往下就是网络层的IP协议，但是IP协议并不提供任何可�
 
 **在停止等待ARQ协议之上，每次发送多个报文，并等待这些分组的确认信息**
 
- ![](https://chenbxxx.oss-cn-beijing.aliyuncs.com/%E8%BF%9E%E7%BB%ADARQ.png)
+ ![](assets/连续ARQ.png)
 
 连续ARQ协议虽然提高了信道利用率，但是仍然会存在**回退N**等问题。
 
@@ -651,7 +651,7 @@ TCP协议中，由**发送方维护**一个反映网络传输能力的的变量�
 
 拥塞控制的流程图：
 
-  ![img](https://chenbxxx.oss-cn-beijing.aliyuncs.com/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6.jpg)
+  ![img](assets/拥塞控制.jpg)
 
 
 
