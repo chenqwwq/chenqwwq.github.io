@@ -7,7 +7,7 @@ branches:
   only:
     - main 
 script:
-  - hexo v
+  - ls -a
   - hexo clean
   - hexo generate # generate static files
 deploy:
