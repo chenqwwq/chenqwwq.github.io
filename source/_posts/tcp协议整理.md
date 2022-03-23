@@ -1,6 +1,6 @@
 ---
-title: TCP 协议（一
-excerpt:  TCP是一种面向连接的，基于字节流的，可靠的传输控制协议。
+title: TCP 协议整理（残酷残酷
+excerpt: 包含连接的建立和释放，有限状态机，可靠传输基础，窗口管理，拥塞控制的等 TCP 基本内容
 index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/TCP%E6%A8%A1%E5%9D%97%E6%95%B4%E7%90%86.png
 banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/TCP%E6%A8%A1%E5%9D%97%E6%95%B4%E7%90%86.png
 date: 2021-10-12 22:10:28
