@@ -2,8 +2,8 @@
 title: 浅析 JVM 类加载子系统
 date: 2021-06-05 15:42:06
 excerpt: Java 的类加载子系统负责从网络或者本地文件等多途径获取以 .class 结尾的字节码文件，并解析成基本的 Class 类。
-index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/JVM类加载子系统.png
-banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/JVM类加载子系统.png
+index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/JVM%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F-7942505.png
+banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/JVM%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F-7942505.png
 mermaid: true
 categories:
 - java
@@ -19,7 +19,7 @@ tags:
 
 ## 思维导图
 
-![JVM 类加载子系统](assets/JVM类加载子系统-7942505.png)
+![JVM 类加载子系统](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/JVM%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F-7942505.png)
 
 
 
@@ -195,7 +195,7 @@ ExtClassLoader 和 AppClassLoader 都定义在 sun.misc.Launcher 中的，Launch
 
 <br>
 
-<img src="assets/Launcher构造函数-7942515.png" alt="Launcher构造函数" style="zoom:67%;" />
+<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/Launcher%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-7942515.png" alt="Launcher构造函数" style="zoom:67%;" />
 
 上图， Launcher 的构造函数中主要就包含了以下三个逻辑：
 
@@ -404,17 +404,17 @@ JDBC 的核心类定义在 Java 的核心库，由 Bootstrap 加载，但是三�
 
 首先该类的静态初始化块中就包含了 Driver 的类加载流程。
 
-<img src="assets/DriverManager的静态初始化块-7942519.png" alt="DriverManager 的静态初始化块" style="zoom:80%;" />
+<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/DriverManager%E7%9A%84%E9%9D%99%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9D%97-7942519.png" alt="DriverManager 的静态初始化块" style="zoom:80%;" />
 
 在 loadInitialDrivers 方法中调用了 ServiceLoader 的 load 方法：
 
-<img src="assets/DriverManager11loadInitialDrivers-7942521.png" alt="loadInitialDrivers" style="zoom:67%;" />
+<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/DriverManager11loadInitialDrivers-7942521.png" alt="loadInitialDrivers" style="zoom:67%;" />
 
 
 
 而在 ServiceLoader 中就包含了对线程上下文类加载器的调用：
 
-<img src="assets/ServerLoader11load-7942523.png" alt="ServerLoader#load" style="zoom:67%;" />
+<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/ServerLoader11load-7942523.png" alt="ServerLoader#load" style="zoom:67%;" />
 
 
 

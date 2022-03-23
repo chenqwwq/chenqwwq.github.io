@@ -3,8 +3,8 @@ title: RabbitMQ 如何保证消息不丢失
 date: 2021-06-16 16:22:11
 excerpt: RabbitMQ 可以分为 Producer（生产者），Consumer（消费者），Exchange（交换机），Queue（队列）四个角色。
 	消息的流经过程就是 Producer -> Exchange -> Queue -> Consumer。
-index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/RabbitMQ脑图1.png
-banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/RabbitMQ脑图1.png
+index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/RabbitMQ%E8%84%91%E5%9B%BE1-7942529.png
+banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/RabbitMQ%E8%84%91%E5%9B%BE1-7942529.png
 mermaid: true
 categories:
 - rabbitmq
@@ -20,7 +20,7 @@ tags:
 
 ## 脑图
 
-![相关脑图](assets/RabbitMQ脑图1-7942529.png)
+![相关脑图](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/RabbitMQ%E8%84%91%E5%9B%BE1-7942529.png)
 
 <br>
 
@@ -62,13 +62,13 @@ Confirm 机制只负责到消息是否到达 Exchange 不负责后续的消息�
 
 Springboot 的 RabbitMQ 实现中，可以对 RabbitTemplate 添加 RabbitTemplate.ConfirmCallback 回调函数，该回调需要额外配置以下内容
 
-<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/rabbitmq-publish-confirm配置.png" alt="rabbitmq-publish-confirm配置" style="zoom:67%;" />
+<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/rabbitmq-publish-confirm%E9%85%8D%E7%BD%AE-20220323%E4%B8%8A%E5%8D%88110140863.png" alt="rabbitmq-publish-confirm配置" style="zoom:67%;" />
 
 **confirm 的回调方法在消息投递出去之后触发，不论成功还是失败都会。**
 
 以回执的方式明确消息是否真正到达 Broker，如果未到达则可以做下一步的处理，重发或者入库等等，方法相关入参如下：
 
-<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/rabbitmq-publish-confirm示例.png" alt="rabbitmq-publish-confirm示例" style="zoom:67%;" />
+<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/rabbitmq-publish-confirm%E7%A4%BA%E4%BE%8B-20220323%E4%B8%8A%E5%8D%88110144410.png" alt="rabbitmq-publish-confirm示例" style="zoom:67%;" />
 
 <br>
 
@@ -86,11 +86,11 @@ Springboot 的客户端封装也提供了 RabbitTemplate.ReturnCallback 回调�
 
 想要该参数生效，以下两个配置必须同时配置。
 
-<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/rabbitmq-springboot-mandatory配置.png" alt="rabbitmq-springboot-mandatory配置" style="zoom:67%;" />
+<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/rabbitmq-springboot-mandatory%E9%85%8D%E7%BD%AE-20220323%E4%B8%8A%E5%8D%88110148745.png" alt="rabbitmq-springboot-mandatory配置" style="zoom:67%;" />
 
 方法相关入参如下：
 
-<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/rabbitmq-mandatory回调示例.png" alt="rabbitmq-mandatory回调示例" style="zoom:67%;" />
+<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/rabbitmq-mandatory%E5%9B%9E%E8%B0%83%E7%A4%BA%E4%BE%8B-20220323%E4%B8%8A%E5%8D%88110153031.png" alt="rabbitmq-mandatory回调示例" style="zoom:67%;" />
 
 <br>
 
@@ -138,7 +138,7 @@ RabbitMQ 的消费者端提供了**自动和手动两种 ack 方式**。
 
 > Consumer 是直接和 Queue 接触的，一个 Queue 可以由多个 Consumer 共同消费，如果一个 Consumer 断线，那么该 Consumer 上未 ack 的消息会被转发到其他的 Consumer 上，此时又会存在重复消费的问题。
 
-**对于手动确认**，RabbitMQ 定义了以下三种形式：![rabbitmq手动ack类型](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/rabbitmq手动ack类型.png)
+**对于手动确认**，RabbitMQ 定义了以下三种形式：![rabbitmq手动ack类型](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/rabbitmq%E6%89%8B%E5%8A%A8ack%E7%B1%BB%E5%9E%8B-8004518.png)
 
 <br>
 
@@ -163,7 +163,7 @@ basic.reject 和 basic.nack 的作用是一样的，区别就在于语义上，�
 
 在创建 Consumer 的时候就需要指定 ack 的形式:
 
-![rabbitmq-创建consumer](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/rabbitmq-创建consumer.png)
+![rabbitmq-创建consumer](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/rabbitmq-%E5%88%9B%E5%BB%BAconsumer-20220323%E4%B8%8A%E5%8D%88110206017.png)
 
 上图中的方法参数 autoAck 就表示是否开启**自动 ack**。
 
@@ -194,7 +194,7 @@ requeue 参数表示是否需要重回队列，如果为 false，那么在方法
 
 SpringBoot 根据以上的 ack 方法抽象提供了三种 AcknowledgeMode，具体如下：
 
-<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/springboot-rabbitmq-ackmode.png" alt="springboot-rabbitmq-ackmode" style="zoom:67%;" />
+<img src="https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/springboot-rabbitmq-ackmode-20220323%E4%B8%8A%E5%8D%88110220858.png" alt="springboot-rabbitmq-ackmode" style="zoom:67%;" />
 
 None 对应的就是 RabbitMQ 的 自动 ack，在消息被下发后就认为是消费成功，Broker 可以删除该消息。
 

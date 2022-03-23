@@ -18,7 +18,7 @@ tags:
 
 
 
-![img](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/MySQL%E7%9A%84%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84-7940422.png)
+![MySQL整体架构](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/MySQL%E7%9A%84%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84-7940422.png)
 
 
 
@@ -59,6 +59,8 @@ MySQL 的存储引擎是可插拔式的，在创建表的时候就可以使用�
 > Q: 为什么要删除查询缓存？
 
 查询缓存是以查询语句为 Key，作为命中的要求，所以命中率并不会高，而且大量的缓存在业务逻辑层实现灵活性更高，更加可控，也就实在没必要在数据库中增加缓存机制。
+
+
 
 
 

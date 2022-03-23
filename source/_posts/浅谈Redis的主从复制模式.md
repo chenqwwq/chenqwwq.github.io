@@ -1,8 +1,8 @@
 ---
 title: 浅析 Redis 的主从模式
 excerpt: Redis 的主从模式和 Sentinel 分别解决的是 Redis 的读性能瓶颈以及单点故障问题。
-index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/redis-master-slaver.png
-banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/redis-master-slaver.png
+index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/redis-master-slaver-7942494.png
+banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/redis-master-slaver-7942494.png
 date: 2021-05-28 00:24:35
 categories:
 - redis
@@ -28,7 +28,7 @@ Redis 的主从复制是 Redis 官方推出的分布式机制，解决了部分�
 
 ## 思维脑图
 
-![redis-master-slaver](assets/redis-master-slaver-7942494.png)
+![redis-master-slaver](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/redis-master-slaver-7942494.png)
 
 
 
@@ -40,7 +40,7 @@ Redis 的主从复制是 Redis 官方推出的分布式机制，解决了部分�
 
 通过指令 `info replication`，可以单独查看服务器此时的主从信息。如下：
 
-![redis-info-replication](assets/redis_info_replication_master-7942497.png)
+![redis-info-replication](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/redis_info_replication_master-7942497.png)
 
 > role 表示当前节点的身份，master 表示是主节点
 >
@@ -98,7 +98,7 @@ Redis 服务器可以通过 `SLAVEOF <ip> <port>` 命令或者配置文件中 `s
 
 旧版的数据同步就是依托于 SYNC 命令，从服务器向主服务器发送该命令表示开启同步数据流程。
 
-![redis-sync基础流程](assets/Redis_SYNC_流程-7942500.png)
+![redis-sync基础流程](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/Redis_SYNC_%E6%B5%81%E7%A8%8B-7942500.png)
 
 主服务器首次接收到 `SYNC` 命令之后，会执行 BGSAVE 命令生成 RDB 文件，并在此时开启**命令缓冲区**，记录备份期间所有执行的写命令。
 

@@ -1,8 +1,8 @@
 ---
 title: synchronized 相关内容整理
 excerpt:  synchronized 是 Java 提供的同步原语，背后是 Java虚拟机(JVM) 提供的 Monitor 机制。
-index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210715211623026.png
-banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/assets/image-20210715211623026.png
+index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/image-20210715211623026.png
+banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/image-20210715211623026.png
 date: 2021-07-15 18:10:28
 categories:
 - java
@@ -13,7 +13,7 @@ tags:
 
 ## 知识脑图
 
-![Synchronized 脑图](assets/image-20210715211623026.png)
+![Synchronized 脑图](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/image-20210715211623026.png)
 
 ## 概述
 
@@ -74,7 +74,7 @@ synchronized 根据不同的上锁形式会有不同的实现方式。
 
 1. 在修饰代码块时使用的是明确的 **monitorenter 和 monitorexit** 两个指令
 
-    ![javap_moitorenter_exit](assets/javap_moitorenter_exit-7942538.png)
+    ![javap_moitorenter_exit](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/javap_moitorenter_exit-7942538.png)
 
     > 退出实际上是两次的，在方法执行完毕之后还会执行一次 monitorexit
 
@@ -82,7 +82,7 @@ synchronized 根据不同的上锁形式会有不同的实现方式。
 
 2. 在修饰方法(包括静态方法)时由方法调用指令读取运行时常量池方法中的  **ACC_SYNCHRONIZED** 隐式实现
 
-      ![javap_acc_synchronized](assets/javap_acc_synchronized-7942540.jpg)
+      ![javap_acc_synchronized](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/javap_acc_synchronized-7942540.jpg)
 
 <br>
 
@@ -96,7 +96,7 @@ Mark Word  是  Java对象头 结构中除类型指针外的另一部分，用�
 
 下图中就比较清晰的展示了，不同情况下 Mark Word 的不同结构：
 
-![markword](assets/markword-7942543.jpg)
+![markword](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/markword-7942543.jpg)
 
 > Mark Word 相当于是锁的记录，查看 Mark Word 就可以确定当前 Monitor 锁的状态。<br>
 >
@@ -111,7 +111,7 @@ Monitor 是虚拟机内建的用来实现同步的机制，原则上Java的每�
 >
 > 因为线程的阻塞，恢复以及 mutex 的调用等都涉及到用户态到内核态的切换，所以性能有限。
 
-![JVM_Monitor](assets/JVM_Monitor-7942546.jpeg)
+![JVM_Monitor](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/JVM_Monitor-7942546.jpeg)
 
 上图可以简单说明整个 Monitor 机制的工作方法。
 
@@ -167,7 +167,7 @@ HopSpot  在  JDK1.6 之后加入了**偏向锁，自旋锁，自适应自旋锁
 
 ### 锁的转换关系
 
-![synchronizd 的锁转换](assets/java_synchronized-7942549.jpg)
+![synchronizd 的锁转换](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/java_synchronized-7942549.jpg)
 
 - 我觉得上图已经很好的展示了几个状态之间的转化，就不在赘述了.<font size="1">(估计也讲不好)</font>
 
