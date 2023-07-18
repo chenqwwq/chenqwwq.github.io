@@ -15,6 +15,6 @@ jobs:
         uses: theme-keep/hexo-deploy-github-pages-action@master
         env:
           PERSONAL_TOKEN: ${{ secrets.HEXO_DEPLOY }} 
-          PUBLISH_REPOSITORY: chenqwwq/chenqwwq.github.io
+          PUBLISH_REPOSITORY: git@github.com:chenqwwq/chenqwwq.github.io.git
           BRANCH: gh-pages
           PUBLISH_DIR: ./public
