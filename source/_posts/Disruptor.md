@@ -8,15 +8,12 @@ tags:
 mermaid: true
 categories:
 - mq
+excerpt: Disruptor 是 LMAX 基于 Java 语言实现的高性能队列。
 ---
-
-
 
 # Disruptor 框架
 
-> 以下源码基于 3.4.4 版本，未完待续。
-
----
+> 以下源码基于 3.4.4 版本
 
 ## 概述
 
