@@ -1,10 +1,11 @@
 ---
 title: Disruptor（高性能内存队列
-date: 2023-07-17 23:52:18
+date: 2023-07-17 23:52:17
 index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/Disruptor%E7%9A%84%E5%89%AF%E6%9C%AC.png
 banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/Disruptor%E7%9A%84%E5%89%AF%E6%9C%AC.png
 tags:
 - Disruptor
+mermaid: true
 categories:
 - mq
 ---
@@ -23,7 +24,7 @@ categories:
 
 以下是 Disruptor 官网的介绍图：
 
-![models](assets/models.png)
+![models](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/models.png)
 
 
 
@@ -63,7 +64,7 @@ Disruptor 是整个框架的核心，**负责协调生产者和队列、队列�
 
 Disruptor 主要持有 RingBuffer 的对象引用，以及所有的消费者信息（生产者的信息并不需要保存，谁持有该对象都可以成为生产者。
 
-![image-20230617上午125120720](assets/image-20230617上午125120720.png)
+![Disruptor类属性](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/Disruptor%E7%B1%BB%E5%B1%9E%E6%80%A7.png)
 
 
 
@@ -122,7 +123,7 @@ private Disruptor(final RingBuffer<T> ringBuffer, final Executor executor)
 
 以下是 3.4.4 版本中 RingBuffer 的定义注释以及继承图：
 
-![image-20230523164808847](assets/image-20230523164808847.png)
+![RingBuffer 注释](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/RingBuffer%E6%B3%A8%E9%87%8A.png)
 
 （基于环形数组实现的可重复使用实例对象的存储组件，保存的数据的在生产者和消费者之间交换。
 
@@ -130,7 +131,7 @@ private Disruptor(final RingBuffer<T> ringBuffer, final Executor executor)
 
 <br>
 
-![image-20230617上午125656652](assets/image-20230617上午125656652.png)
+![RingBuffer 类图](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/RingBuffer%E7%B1%BB%E5%9B%BE.png)
 
 
 
@@ -648,8 +649,8 @@ Disruptor#halt 方法除了修改当前 **EventProcessor** 的状态，还会在
 整体流程如下：
 
 ```mermaid
-flowchart TD
-  	A("Runnable#run(整个流程的起点") --> B[/"更新当前状态(IDEL -> RUNNING"/]
+graph TD
+	  A("Runnable#run(整个流程的起点") --> B[/"更新当前状态(IDEL -> RUNNING"/]
   	B --更新成功--> C["清空告警(clearAlert"]
   	C --> D["执行 LifecycleAware#onStart"]
   	D --> E[/"判断当前状态(RUNNING"/]
@@ -711,11 +712,11 @@ Disruptor 的构造函数中已经表明，作者不建议使用 Executor 来执
 
 生产的形式可以分为以下几种（Disruptor 的方法声明：
 
-![image-20230606201619355](assets/image-20230606201619355.png)
+![Disruptor_publishEvent.png](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/Disruptor_publishEvent.png)
 
 EventTranslator 就是对应的事件赋值接口，相关定义如下：
 
-![image-20230606201849222](assets/image-20230606201849222.png)
+![EventTranslator](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/EventTranslator.png)
 
 接口参数【event】表示当前需要赋值的事件对象，而【sequence】表示事件对应的序号。
 
@@ -723,7 +724,7 @@ EventTranslator 就是对应的事件赋值接口，相关定义如下：
 
 最终都是调用 RingBuffer 的对应方法，以第一个 EventTranslator 为例，其方法实现如下：
 
-![image-20230620上午120805316](assets/image-20230620上午120805316.png)
+![RingBuffer#publishEvent](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/RingBuffer_publishEvent.png)
 
 具体的使用场景（RingBuffer 的具体发布流程）如下：
 
