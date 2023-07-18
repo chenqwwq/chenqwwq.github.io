@@ -959,7 +959,7 @@ static_prefix:
 
   clipboard: https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/
 
-  mermaid: https://cdn.jsdelivr.net/npm/mermaid@8.9.2/dist/
+  mermaid: https://cdn.jsdelivr.net/npm/mermaid@10.2.4/dist/
 
   valine: https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/
 

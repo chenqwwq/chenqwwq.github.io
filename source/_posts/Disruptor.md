@@ -16,8 +16,6 @@ categories:
 
 > 以下源码基于 3.4.4 版本，未完待续。
 
-![Disruptor](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/Disruptor%E7%9A%84%E5%89%AF%E6%9C%AC.png)
-
 ---
 
 ## 概述
