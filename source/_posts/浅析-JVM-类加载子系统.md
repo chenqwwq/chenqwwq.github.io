@@ -1,6 +1,6 @@
 ---
 title: 浅析 JVM 类加载子系统
-date: 2021-06-05 15:42:06
+date: 2024-09-08 15:42:06
 excerpt: Java 的类加载子系统负责从网络或者本地文件等多途径获取以 .class 结尾的字节码文件，并解析成基本的 Class 类。
 index_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/JVM%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F-7942505.png
 banner_img: https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/JVM%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F-7942505.png
@@ -29,9 +29,9 @@ tags:
 
 ## 概述
 
-Java 的类加载子系统负责从网络或者本地文件等多途径获取以 .class 结尾的字节码文件，并解析成基本的 Class 类型。
+Java 的类加载子系统负责从网络或者本地文件等多种途径获取以 .class 结尾的字节码文件，并解析成基本的 Class 类型。
 
-加载子系统只负责类的加载，保证类的安全性，执行还是交给执行子系统的。
+加载子系统只负责类的加载，保证类的安全性，执行还是交给执行子系统。
 
 <br>
 
@@ -102,6 +102,8 @@ Class 文件常量池中就包含了一部分的符号引用。
 `<cinit>`  就是从类文件中收集的包括静态初始化快，字面量初始化等等的语句。
 
 > 有一个注意点是静态初始化块是从上到下顺序加载并执行的，并且先于构造函数的 <init> 执行。
+>
+> cinit 可以理解为 class init。
 
 <br>
 
@@ -173,7 +175,7 @@ B --> C[Application ClassLoader]
 
 <br>
 
-> Bootstrap 和 Extension 两个加载器扫描的类的目录已经被限定死了，这是后续 SPI 等实现必须要通过 TCCL 的原因之一。
+> Bootstrap 和 Extension 两个加载器扫描的类的目录已经被限定死了，这是后续 SPI 等实现必须要通过 TCCL（线程上下文类加载器） 的原因之一。
 
 <br>
 
@@ -218,7 +220,7 @@ ClassLoader 中分别有以下几种重点方法：
 | loadClass(String,boolean)               | 加载指定的 Class 文件的二进制流数据，boolean 表示是否对 Class 对象进行解析 |
 | findClass(String)                       | 搜索 Class 文件，入参为类的全限定名                          |
 | defineClass(byte[] b, int off, int len) | 该方法用于将 byte 字节流解析成 Class 对象，入参就是 byte 数组。 |
-| resolveClass(Class≺?≻ c)                | 解析并初始化 Class 类                                        |
+| resolveClass(Class≺?≻ c)                | 解析并初始化 Class 类，初始化是指调用 <cinit> 方法           |
 
 <br>
 
@@ -228,7 +230,7 @@ ClassLoader 中分别有以下几种重点方法：
 
 > 有个容易忽略的点是，该方法可以获得 Class 类，但是并不会触发 Class 类的初始化，也就是类加载的最后一步。
 >
-> 但 Class.forName 会触发类的初始化，
+> 但 Class.forName 会触发类的初始化。
 
 <br>
 
@@ -424,4 +426,19 @@ JDBC 的核心类定义在 Java 的核心库，由 Bootstrap 加载，但是三�
 
 ### Spring 的类加载机制
 
-Spring 的类加载场景比较复杂，所以基本是统一采用 TCCL 来实现类加载，Spring 研究不多，待补充。
+Spring 的类加载机制也打破了双亲加载模式，首先定义了 DecoratingClassLoader，其中定义了需要被排除的类路径和包名。
+
+![image-20240908下午42117590](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/image-20240908%E4%B8%8B%E5%8D%8842117590.png)
+
+以及判断是否需要排除的方法，如下：
+
+![image-20240908下午42218969](https://chenqwwq.oss-cn-hangzhou.aliyuncs.com/note/image-20240908%E4%B8%8B%E5%8D%8842218969.png)
+
+
+
+而后就是主要的 OverridingClassLoader，该类基于 DecoratingClassLoader 实现，除了排除的类之外优先从 ClassPath 中加载类。
+
+![image-20240908下午42433938](assets/image-20240908下午42433938.png)
+
+Spring 默认会将核心类库全部添加到排除的目录。
+
